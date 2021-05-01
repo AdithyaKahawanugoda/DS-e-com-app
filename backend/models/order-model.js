@@ -13,14 +13,24 @@ const OrderSchema = new mongoose.Schema({
   delivery: {
     deliveryAddress: {
       type: String,
+      required: true,
     },
     deliveryFee: {
       type: Number,
+      required: true,
     },
-    deliveryStatus: {
-      type: String,
-      default: "Pending",
-    },
+    deliveryStatus: [
+      {
+        status: {
+          type: String,
+          default: "Pending",
+        },
+        updatedTime: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   orderData: [
     {

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const AdminModel = require("../models/admin-model");
 
-exports.protect = async (req, res, next) => {
+exports.protectedAdminRoutes = async (req, res, next) => {
   let token;
 
   if (

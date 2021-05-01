@@ -65,6 +65,18 @@ const CustomerSchema = new mongoose.Schema({
       },
     },
   ],
+  wishList: [
+    {
+      productID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "products",
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 //by using "pre save" we run this code segment before mongoose save data on db
