@@ -4,6 +4,7 @@ const AdminModel = require("../models/admin-model");
 const AllUsersModel = require("../models/all-users-model");
 const { cloudinary } = require("../utils/cloudinary");
 
+//-------Adithya-------
 exports.registerCustomer = async (req, res, next) => {
   const { username, email, password, fileEnc, contactNo } = req.body;
 
@@ -125,3 +126,5 @@ const findUserByEmail = async (email) => {
     });
   }
 };
+
+//----------------

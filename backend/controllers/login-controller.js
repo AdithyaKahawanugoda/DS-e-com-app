@@ -2,6 +2,8 @@ const CustomerModel = require("../models/customer-model");
 const SellerModel = require("../models/seller-model");
 const AdminModel = require("../models/admin-model");
 
+//-------Adithya-------
+
 exports.login = async (req, res, next) => {
   const { email, password, role } = req.body;
 
@@ -40,3 +42,5 @@ const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   res.status(statusCode).json({ sucess: true, token, user });
 };
+
+//----------------
