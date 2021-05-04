@@ -6,7 +6,7 @@ const {protectedSellerRoutes} = require("../middlewares/seller-auth");
 
 
 //import controllers
-const { getSellerProducts,createSellerProduct,updateSellerproduct,deleteSellerProducts,getSellerDetails,updateSellerDetails } = require("../controllers/profile-seller-controller");
+const { getSellerProducts,createSellerProduct,updateSellerproduct,deleteSellerProducts,getSellerDetails,updateSellerDetails,deleteSellerDetails } = require("../controllers/profile-seller-controller");
 
 //routes
 router.route("/product/add").post(protectedSellerRoutes,createSellerProduct);
