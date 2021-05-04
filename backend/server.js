@@ -7,6 +7,7 @@ const cors = require("cors");
 //import routes
 // const regRoutes = require("./routes/registration-routes");
 const regRoutes = require("./routes/registration-routes");
+const sellerRoutes = require("./routes/seller-routes");
 
 const app = express();
 
@@ -33,6 +34,7 @@ mongoose
 
 //use routes
 app.use("/ecom/api", regRoutes);
+app.use("/ecom/api/sellerpvt",sellerRoutes);
 
 //event loop for server
 app.listen(PORT, () => {
