@@ -26,6 +26,7 @@ exports.protectedCustomerRoutes = async (req, res, next) => {
         .json({ success: false, error: "No user found with this ID" });
     }
 
+    console.log("Going through middleware, user=" + user);
     req.user = user;
     next();
   } catch (error) {

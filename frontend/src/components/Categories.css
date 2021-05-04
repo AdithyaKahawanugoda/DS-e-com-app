@@ -1,0 +1,7 @@
+.custom-card-style {
+  padding: 1vh;
+  margin-left: 0.3vh;
+  margin-right: 0.3vh;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}

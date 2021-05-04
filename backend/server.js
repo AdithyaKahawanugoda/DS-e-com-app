@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 //import routes
+// const regRoutes = require("./routes/registration-routes");
 const regRoutes = require("./routes/registration-routes");
 
 const app = express();

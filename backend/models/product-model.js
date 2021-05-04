@@ -26,6 +26,10 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   unitPrice: {
     type: Number,
     required: true,

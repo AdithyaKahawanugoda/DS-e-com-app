@@ -10,28 +10,28 @@ const OrderSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  delivery: {
-    deliveryAddress: {
-      type: String,
-      required: true,
-    },
-    deliveryFee: {
-      type: Number,
-      required: true,
-    },
-    deliveryStatus: [
-      {
-        status: {
-          type: String,
-          default: "Pending",
-        },
-        updatedTime: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
+
+  deliveryAddress: {
+    type: String,
+    required: true,
   },
+  deliveryFee: {
+    type: Number,
+    required: true,
+  },
+  deliveryStatus: [
+    {
+      status: {
+        type: String,
+        default: "Pending",
+      },
+      updatedTime: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+
   orderData: [
     {
       productID: {

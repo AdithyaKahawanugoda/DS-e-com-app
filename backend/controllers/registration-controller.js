@@ -1,23 +1,14 @@
 const CustomerModel = require("../models/customer-model");
 const SellerModel = require("../models/seller-model");
+const AdminModel = require("../models/admin-model");
+const AllUsersModel = require("../models/all-users-model");
 const { cloudinary } = require("../utils/cloudinary");
 
 exports.registerCustomer = async (req, res, next) => {
   const { username, email, password, fileEnc, contactNo } = req.body;
 
-  console.log("fileEnc:" + fileEnc);
-
   //check for users with same email address within customer collection
-  let existingEmail;
-  try {
-    existingEmail = await CustomerModel.findOne({ email: email });
-  } catch (err) {
-    res.status(422).json({
-      success: false,
-      desc: "Error occured in duplicate email check code segment",
-      error: err.message,
-    });
-  }
+  let existingEmail = await findUserByEmail(email);
 
   if (existingEmail) {
     existingEmail = null;
@@ -42,10 +33,16 @@ exports.registerCustomer = async (req, res, next) => {
           imageSecURL: uploadedResponse.secure_url,
         },
       });
-
       const token = await customer.getSignedToken();
 
-      res.status(201).json({ success: true, token });
+      const createdAllUser = new AllUsersModel({
+        username,
+        email,
+        role: "customer",
+      });
+
+      await createdAllUser.save();
+      res.status(201).json({ success: true, token, role: "customer" });
     } catch (error) {
       res.status(500).json({
         success: false,
@@ -60,16 +57,7 @@ exports.registerSeller = async (req, res, next) => {
   const { username, email, password, address, contactNo } = req.body;
 
   //check for users with same email address within customer collection
-  let existingEmail;
-  try {
-    existingEmail = await SellerModel.findOne({ email: email });
-  } catch (err) {
-    res.status(422).json({
-      success: false,
-      desc: "Error occured in duplicate email check code segment",
-      error: err.message,
-    });
-  }
+  let existingEmail = await findUserByEmail(email);
 
   if (existingEmail) {
     existingEmail = null;
@@ -87,7 +75,14 @@ exports.registerSeller = async (req, res, next) => {
         address,
       });
       const token = await seller.getSignedToken();
-      res.status(201).json({ success: true, token });
+      const createdAllUser = new AllUsersModel({
+        username,
+        email,
+        role: "seller",
+      });
+
+      await createdAllUser.save();
+      res.status(201).json({ success: true, token, role: "seller" });
     } catch (error) {
       res.status(500).json({
         success: false,
@@ -95,5 +90,38 @@ exports.registerSeller = async (req, res, next) => {
         error: error.message,
       });
     }
+  }
+};
+
+exports.registerAdmin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const admin = await AdminModel.create({
+      email,
+      password,
+    });
+    const token = await admin.getSignedToken();
+    res.status(201).json({ success: true, token, role: "admin" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      desc: "Error in registerAdmin controller",
+      error: error.message,
+    });
+  }
+};
+
+const findUserByEmail = async (email) => {
+  let existingAccount;
+  try {
+    existingAccount = await AllUsersModel.findOne({ email: email });
+    return existingAccount;
+  } catch (err) {
+    res.status(422).json({
+      success: false,
+      desc: "Error occured in findUserByEmail segment",
+      error: err.message,
+    });
   }
 };
