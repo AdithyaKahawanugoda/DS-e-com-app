@@ -7,7 +7,7 @@ exports.getProfileData = async (req, res, next) => {
     if (!req.user) {
       res.status(422).json({
         success: false,
-        error: "Can not find the user - Please check again",
+        desc: "Can not find the user - Please check again",
       });
     } else {
       res.status(200).send({
@@ -17,7 +17,7 @@ exports.getProfileData = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: "Error in getProfileData controller-" + error,
+      desc: "Error in getProfileData controller-" + error,
     });
   }
 };
@@ -39,12 +39,12 @@ exports.updateProfileData = async (req, res, next) => {
     );
     res.status(200).send({
       success: true,
-      message: "user updated successfully",
+      desc: "user updated successfully",
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: "Error in updateProfileData controller-" + error,
+      desc: "Error in updateProfileData controller-" + error,
     });
   }
 };
@@ -60,14 +60,14 @@ exports.deleteProfile = async (req, res, next) => {
 
     res.status(200).send({
       status: true,
-      message: "User deleted from the db",
+      desc: "User deleted from the db",
       deletedCustomer,
       deletedAllUser,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: "Error in deleteProfile controller-" + error,
+      desc: "Error in deleteProfile controller-" + error,
     });
   }
 };
@@ -89,7 +89,7 @@ exports.updateProfilePicture = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: "Error in updateProfilePicture controller-" + error,
+      desc: "Error in updateProfilePicture controller-" + error,
     });
   }
 };

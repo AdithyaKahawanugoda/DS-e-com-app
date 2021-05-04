@@ -12,7 +12,7 @@ exports.registerCustomer = async (req, res, next) => {
 
   if (existingEmail) {
     existingEmail = null;
-    res.status(422).json({
+    res.status(401).json({
       success: false,
       desc: "Email already exist - Please check again",
     });
