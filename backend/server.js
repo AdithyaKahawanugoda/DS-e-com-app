@@ -8,6 +8,11 @@ const cors = require("cors");
 // const regRoutes = require("./routes/registration-routes");
 const regRoutes = require("./routes/registration-routes");
 const sellerRoutes = require("./routes/seller-routes");
+const adminRoutes = require("./routes/admin-routes");
+const customerRoutes = require("./routes/customer-routes");
+const guestRoutes = require("./routes/guest-routes");
+
+
 
 const app = express();
 
@@ -35,6 +40,9 @@ mongoose
 //use routes
 app.use("/ecom/api", regRoutes);
 app.use("/ecom/api/sellerpvt",sellerRoutes);
+app.use("/ecom/api/adminpvt",adminRoutes);
+app.use("/ecom/api/customerpvt",customerRoutes);
+app.use("/ecom/api/guest",guestRoutes);
 
 //event loop for server
 app.listen(PORT, () => {

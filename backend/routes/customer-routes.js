@@ -24,4 +24,26 @@ router
   .route("/profile/customer/updatepp")
   .put(protectedCustomerRoutes, updateProfilePicture);
 
+
+//.......................................................
+const {
+  getWishlist,
+  addToWishList,
+  removeItemsFromWishlist
+} = require("../controllers/profile-customer-controller");
+
+router.route("/getWishlist/:id").get(protectedCustomerRoutes,getWishlist);
+
+router.route("/addtoWishlist/:id").put(protectedCustomerRoutes,addToWishList);
+
+ router.route("/removeItemsFromWishlist/:id").put(protectedCustomerRoutes,removeItemsFromWishlist);
+
+//.......................................................
+
+
+
+
+
+
+
 module.exports = router;

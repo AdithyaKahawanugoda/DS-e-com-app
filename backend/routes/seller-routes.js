@@ -17,4 +17,5 @@ router.route("/seller/:sellerID").get(protectedSellerRoutes,getSellerDetails);
 router.route("/seller/update/:id").put(protectedSellerRoutes,updateSellerDetails);
 router.route("/seller/delete/:id").delete(protectedSellerRoutes,deleteSellerDetails);
 
+
 module.exports = router;

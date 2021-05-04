@@ -93,3 +93,71 @@ exports.updateProfilePicture = async (req, res, next) => {
     });
   }
 };
+
+
+
+//..................................................................
+//*****Randika*****/
+//fetch wishlist
+//fetch only wishlist
+exports.getWishlist = async (req, res) => {
+  let cusId = req.params.id; 
+  await CustomerModel.findById(cusId)
+    .then((customer) => {
+      res.status(200).send({ status: "Customer fetched", wishlist: customer.wishList});
+    })
+    .catch((err) => {
+      console.log(err);
+      res
+        .status(500)
+        .send({ status: "Error in fetching customer", error: err.message });
+    });
+};
+
+
+//add to wishlist
+
+exports.addToWishList = async (req, res) => {
+  const productID = req.body.productID;
+  const CustomerId = req.params.id;
+
+  try {
+  const wishlist = {
+    productID: productID,
+  };
+  
+    await CustomerModel.findOneAndUpdate(
+      { _id: CustomerId },
+      { $push: { wishList: wishlist } }
+    );
+    res.status(200).send({ status: "Product Added to Wishlist", wishlist });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+
+//remove items from wishlist
+
+exports.removeItemsFromWishlist = async (req, res) => {
+const itemId = req.params.id;
+try {
+  const customer = req.body.id;
+  
+  const deleteWishlistItem = await CustomerModel.updateOne(
+    { _id: customer },
+    { $pull: { wishList: {_id:itemId} } },
+  )
+
+  res.status(200).send({ status: "product removed from the list", wishlist: deleteWishlistItem });
+} catch (error) {
+  res
+    .status(500)
+    .send({ status: "error with /delete/:id", error: error.message });
+}
+};
+
+
+
+//..................................................................
