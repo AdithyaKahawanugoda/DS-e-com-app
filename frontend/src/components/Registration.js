@@ -68,8 +68,6 @@ const Registration = () => {
             window.location = `/profile/${res.data.role}`;
           })
           .catch((err) => {
-            console.log(err.response.data.desc);
-            alert(err.response.data.desc);
             setError(err.response.data.desc);
             setTimeout(() => {
               setError("");
@@ -97,7 +95,10 @@ const Registration = () => {
             window.location = `/profile/${res.data.role}`;
           })
           .catch((err) => {
-            alert("ERROR! " + err);
+            setError(err.response.data.desc);
+            setTimeout(() => {
+              setError("");
+            }, 5000);
           });
       }
     }

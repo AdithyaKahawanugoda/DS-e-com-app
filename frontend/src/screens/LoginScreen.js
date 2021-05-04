@@ -53,8 +53,8 @@ const LoginScreen = () => {
         alert("token set:" + data.token + "and user ID:" + data.user._id);
 
         window.location = `/profile/${data.user.role}`;
-      } catch (error) {
-        setError(error);
+      } catch (err) {
+        setError(err.response.data.desc);
         setTimeout(() => {
           setError("");
         }, 5000);
