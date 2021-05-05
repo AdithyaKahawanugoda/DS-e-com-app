@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 
-import Categories from "../components/Categories";
-import CoverImageSlider from "../components/CoverImageSlider";
+import Categories from "../../components/Adithya/Categories";
+import CoverImageSlider from "../../components/Adithya/CoverImageSlider";
 
 const HomeScreen = () => {
   return (

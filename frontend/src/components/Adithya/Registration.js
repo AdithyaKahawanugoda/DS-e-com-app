@@ -55,7 +55,7 @@ const Registration = () => {
           contactNo: phone,
         };
         await axios
-          .post("http://localhost:6500/ecom/api/reg-customer", reqObject)
+          .post("http://localhost:6500/ecom/api/auth/reg-customer", reqObject)
           .then((res) => {
             localStorage.setItem("authToken", res.data.token);
             localStorage.setItem("userRole", res.data.role);
@@ -82,7 +82,7 @@ const Registration = () => {
           contactNo: phone,
         };
         await axios
-          .post("http://localhost:6500/ecom/api/reg-seller", reqObject)
+          .post("http://localhost:6500/ecom/api/auth/reg-seller", reqObject)
           .then((res) => {
             localStorage.setItem("authToken", res.data.token);
             localStorage.setItem("userRole", res.data.role);

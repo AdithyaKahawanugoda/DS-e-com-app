@@ -2,7 +2,7 @@ import React from "react";
 import "./RegistrationScreen.css";
 import { Row, Col, Image } from "antd";
 
-import Registration from "../components/Registration";
+import Registration from "../../components/Adithya/Registration";
 
 const RegistrationScreen = () => {
   return (

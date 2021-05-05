@@ -44,14 +44,13 @@ const LoginScreen = () => {
       let postObject = { email, password, role };
       try {
         const { data } = await axios.post(
-          "http://localhost:6500/ecom/api/login",
+          "http://localhost:6500/ecom/api/auth/login",
           postObject
         );
 
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", data.user.role);
         alert("token set:" + data.token + "and user ID:" + data.user._id);
-
         window.location = `/profile/${data.user.role}`;
       } catch (err) {
         setError(err.response.data.desc);

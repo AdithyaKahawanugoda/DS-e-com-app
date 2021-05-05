@@ -27,7 +27,7 @@ const AdminLoginScreen = () => {
       let postObject = { email, password, role };
       try {
         const { data } = await axios.post(
-          "http://localhost:6500/ecom/api/login",
+          "http://localhost:6500/ecom/api/auth/login",
           postObject
         );
 

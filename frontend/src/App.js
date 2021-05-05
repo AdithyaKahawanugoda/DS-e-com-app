@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as BRouter, Switch, Route } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomeScreen from "./screens/HomeScreen";
-import RegistrationScreen from "./screens/RegistrationScreen";
-import LoginScreen from "./screens/LoginScreen";
-import AdminLoginScreen from "./screens/AdminLoginScreen";
-import CustomerProfileScreen from "./screens/CustomerProfileScreen";
-import SellerProfileScreen from "./screens/SellerProfileScreen";
-import AdminProfileScreen from "./screens/AdminProfileScreen";
+import Header from "./components/Adithya/Header";
+import Footer from "./components/Adithya/Footer";
+import HomeScreen from "./screens/Adithya/HomeScreen";
+import RegistrationScreen from "./screens/Adithya/RegistrationScreen";
+import LoginScreen from "./screens/Adithya/LoginScreen";
+import AdminLoginScreen from "./screens/Adithya/AdminLoginScreen";
+import CustomerProfileScreen from "./screens/Adithya/CustomerProfileScreen";
+import SellerProfileScreen from "./screens/Adithya/SellerProfileScreen";
+import AdminProfileScreen from "./screens/Adithya/AdminProfileScreen";
 
 const App = () => {
   return (
