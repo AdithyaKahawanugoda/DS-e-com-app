@@ -1,8 +1,11 @@
 import React from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 import Categories from "../../components/Adithya/Categories";
+import OurServices from "../../components/Adithya/OurServices";
 import CoverImageSlider from "../../components/Adithya/CoverImageSlider";
+import AboutUs from "../../components/Adithya/AboutUs";
+import "./HomeScreen.css";
 
 const HomeScreen = () => {
   return (
@@ -12,11 +15,13 @@ const HomeScreen = () => {
         <Row className="justify-content-md-center">
           <Categories />
         </Row>
-        <Row className="justify-content-md-center">
-          <h3>Our Services</h3>
+        <Row>
+          <OurServices />
         </Row>
         <Row className="justify-content-md-center">
-          <h3>About Us</h3>
+          <Container className="custom-aboutus-content" fluid>
+            <AboutUs />
+          </Container>
         </Row>
       </Container>
     </div>

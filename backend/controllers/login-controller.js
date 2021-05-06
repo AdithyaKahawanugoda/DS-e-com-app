@@ -21,6 +21,13 @@ exports.login = async (req, res, next) => {
       desc: "Can not find the user - Please check again",
     });
   }
+
+  if (user === null) {
+    res.status(422).json({
+      success: false,
+      desc: "Can not find the user - Please check again",
+    });
+  }
   //check password match
   try {
     const isMatch = await user.matchPasswords(password);

@@ -10,6 +10,7 @@ import AdminLoginScreen from "./screens/Adithya/AdminLoginScreen";
 import CustomerProfileScreen from "./screens/Adithya/CustomerProfileScreen";
 import SellerProfileScreen from "./screens/Adithya/SellerProfileScreen";
 import AdminProfileScreen from "./screens/Adithya/AdminProfileScreen";
+import ProductListingScreen from "./screens/Adithya/ProductListingScreen";
 
 const App = () => {
   return (
@@ -40,6 +41,9 @@ const App = () => {
         </Switch>
         <Switch>
           <Route exact path="/profile/admin" component={AdminProfileScreen} />
+        </Switch>
+        <Switch>
+          <Route exact path="/products" component={ProductListingScreen} />
         </Switch>
       </main>
       <Footer />

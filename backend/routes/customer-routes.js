@@ -24,7 +24,6 @@ router
   .route("/profile/customer/updatepp")
   .put(protectedCustomerRoutes, updateProfilePicture);
 
-
 //.......................................................
 //Wishlist
 const {
@@ -34,30 +33,16 @@ const {
   addOrder
 } = require("../controllers/profile-customer-controller");
 
-router.route("/getWishlist/:id").get(protectedCustomerRoutes,getWishlist);
+router.route("/getWishlist/:id").get(protectedCustomerRoutes, getWishlist);
 
-router.route("/addtoWishlist/:id").put(protectedCustomerRoutes,addToWishList);
+router.route("/addtoWishlist/:id").put(protectedCustomerRoutes, addToWishList);
 
- router.route("/removeItemsFromWishlist/:id").put(protectedCustomerRoutes,removeItemsFromWishlist);
+router
+  .route("/removeItemsFromWishlist/:id")
+  .put(protectedCustomerRoutes, removeItemsFromWishlist);
 
  router.route("/addOrder").post(protectedCustomerRoutes,addOrder);
 
-//.......................................................
-
-
-//Cart
-const {
-  addToCart,
-  getCartItems,
-  removeCartItems,
-  }  = require("../controllers/profile-customer-controller");
-
- 
-  router.route("/addtocart").post(protectedCustomerRoutes,addToCart);
-
-  router.route("/getcartitems").get(protectedCustomerRoutes, getCartItems);
-  
-  router.route("/removecartitems").post(protectedCustomerRoutes,removeCartItems);
 //.......................................................
 
 

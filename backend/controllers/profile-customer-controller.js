@@ -14,7 +14,7 @@ exports.getProfileData = async (req, res, next) => {
       });
     } else {
       res.status(200).send({
-        researcher: req.user,
+        customer: req.user,
       });
     }
   } catch (error) {
@@ -25,9 +25,6 @@ exports.getProfileData = async (req, res, next) => {
   }
 };
 exports.updateProfileData = async (req, res, next) => {
-  console.log("Check update prof data, req body=" + req.body);
-  console.log("Check update prof data, req user.id=" + req.user.id);
-  console.log("Check update prof data, req user._id=" + req.user._id);
   const { username, email, contactNo, address } = req.body;
   try {
     const newData = {
@@ -52,7 +49,7 @@ exports.updateProfileData = async (req, res, next) => {
   }
 };
 exports.deleteProfile = async (req, res, next) => {
-  const { email } = req.body;
+  const email = req.user.email;
   try {
     await CustomerModel.findByIdAndDelete(req.user.id);
     const allUserData = await AllUsersModel.findOne({ email });
@@ -78,16 +75,39 @@ exports.updateProfilePicture = async (req, res, next) => {
   const { fileEnc } = req.body;
 
   try {
-    await cloudinary.uploader.destroy(req.user.profilePicture.imagePublicId);
-    const uploadedResponse = await cloudinary.uploader.upload(fileEnc, {
-      upload_preset: "GRID_DS_Registration",
-    });
-    let updatedPP = {
-      imagePublicId: uploadedResponse.public_id,
-      imageSecURL: uploadedResponse.secure_url,
-    };
+    const destroyedImage = await cloudinary.uploader.destroy(
+      req.user.profilePicture.imagePublicId
+    );
+    if (destroyedImage) {
+      try {
+        const uploadedResponse = await cloudinary.uploader.upload(fileEnc, {
+          upload_preset: "GRID_DS_Registration",
+        });
+        let updatedPP = {
+          imagePublicId: uploadedResponse.public_id,
+          imageSecURL: uploadedResponse.secure_url,
+        };
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          desc: "Error in uploading new image-" + error,
+        });
+      }
+    } else {
+      res.status(500).json({
+        success: false,
+        desc: "Error in previous image remove-" + error,
+      });
+    }
+
     const updated = await CustomerModel.findByIdAndUpdate(req.user._id, {
       profilePicture: updatedPP,
+    });
+
+    res.status(200).send({
+      status: true,
+      desc: "User pp updated",
+      updated,
     });
   } catch (error) {
     res.status(500).json({
