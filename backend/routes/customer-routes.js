@@ -26,6 +26,7 @@ router
 
 
 //.......................................................
+//Wishlist
 const {
   getWishlist,
   addToWishList,
@@ -38,6 +39,22 @@ router.route("/addtoWishlist/:id").put(protectedCustomerRoutes,addToWishList);
 
  router.route("/removeItemsFromWishlist/:id").put(protectedCustomerRoutes,removeItemsFromWishlist);
 
+//.......................................................
+
+
+//Cart
+const {
+  addToCart,
+  getCartItems,
+  removeCartItems,
+  }  = require("../controllers/profile-customer-controller");
+
+ 
+  router.route("/addtocart").post(protectedCustomerRoutes,addToCart);
+
+  router.route("/getcartitems").get(protectedCustomerRoutes, getCartItems);
+  
+  router.route("/removecartitems").post(protectedCustomerRoutes,removeCartItems);
 //.......................................................
 
 

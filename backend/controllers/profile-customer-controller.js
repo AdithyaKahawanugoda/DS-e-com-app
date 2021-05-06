@@ -1,6 +1,7 @@
 const CustomerModel = require("../models/customer-model");
 const AllUsersModel = require("../models/all-users-model");
 const { cloudinary } = require("../utils/cloudinary");
+const { ObjectId } = require('mongodb');
 
 //----Adithya------
 exports.getProfileData = async (req, res, next) => {
@@ -150,12 +151,110 @@ exports.removeItemsFromWishlist = async (req, res) => {
     res.status(200).send({
       status: "product removed from the list",
       wishlist: deleteWishlistItem,
-    });
+     });
   } catch (error) {
     res
       .status(500)
       .send({ status: "error with /delete/:id", error: error.message });
   }
 };
+
+//----------------
+
+//----Lakindu------
+
+//Add Items To The Cart
+exports.addToCart = async (req, res) => {
+
+  let customer;
+  try {
+      customer = await CustomerModel.findOne(ObjectId(req.user._id)).exec()
+  } catch (error) {
+      return res.status(400).json({ error });
+  }
+
+  if(!customer) {
+      return res.status(400).json({ message: 'Customer not found' });
+  }
+
+  const productID = req.body.productID;
+  const cart = customer.cart || [];
+  const isitemadded = cart.find(c => c.productID == productID);
+  const cartItem = {
+      productID: req.body.productID,
+      quantity: isitemadded ? isitemadded.quantity + req.body.quantity : req.body.quantity,
+  }
+  let condition;
+  let update;
+
+  if (isitemadded) {
+      condition = { _id: ObjectId(req.user._id), "cart.productID": productID };
+      update = {
+          "$set": {
+              "cart.$": cartItem
+          }
+      }; 
+  } else {
+      condition = { _id: ObjectId(req.user._id) };
+      update = {
+          "$push": {
+              "cart": cartItem
+          }
+      };
+  }
+
+  let updatedCart;
+
+  try {
+      updatedCart = await CustomerModel.findOneAndUpdate(condition, update, {
+          new: true
+      }).exec()
+  } catch (error) {
+      return res.status(400).json({ error });
+  }
+
+  return res.status(201).json({ cart: updatedCart })
+};
+
+
+
+//Remove Item from the Cart
+exports.removeCartItems = async (req, res) => {
+const productID = req.body.productID;
+
+  if (productID) {
+    CustomerModel.updateOne(
+      { _id: ObjectId(req.user.id) 
+       },
+      {
+        "$pull": {
+          "cart": {
+              productID: ObjectId(req.body.productID),
+          },
+        },
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
+
+
+  //Get Cart Items
+  exports.getCartItems = async (req, res) => {
+    const  userID  = req.user.id ;
+  
+    try {
+      const user = await CustomerModel.findById(userID);
+      const cartlist = user.cart;
+      
+      res.status(200).json(cartlist);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  };
 
 //----------------
