@@ -2,6 +2,7 @@ const CustomerModel = require("../models/customer-model");
 const AllUsersModel = require("../models/all-users-model");
 const { cloudinary } = require("../utils/cloudinary");
 const { ObjectId } = require('mongodb');
+const OrderModel = require("../models/order-model")
 
 //----Adithya------
 exports.getProfileData = async (req, res, next) => {
@@ -158,6 +159,47 @@ exports.removeItemsFromWishlist = async (req, res) => {
       .send({ status: "error with /delete/:id", error: error.message });
   }
 };
+
+//add order
+exports.addOrder = async (req, res) => {
+  const buyerID = req.user._id;
+  const billAmount = req.body.billAmount;
+  const deliveryAddress = req.body.deliveryAddress;
+  const deliveryFee = req.body.deliveryFee;
+  const status = req.body.status
+  const productID = req.body.productID
+  const quantity = req.body.quantity
+  const appliedDisPecentage = req.body.appliedDisPecentage
+
+  const deliveryStatus = {
+    status: status,
+  };
+
+  const orderData ={
+    productID : productID,
+    quantity:quantity,
+    appliedDisPecentage:appliedDisPecentage
+  }
+  
+  const newDelOrder = new OrderModel({
+    buyerID,
+    billAmount,
+    deliveryAddress,
+    deliveryFee,
+    deliveryStatus,
+    orderData
+  });
+  
+  newDelOrder
+    .save()
+    .then(() => {
+      res.json("New Order Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 
 //----------------
 

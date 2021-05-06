@@ -6,7 +6,7 @@ import AdminDashboard from "../../components/Adithya/AdminDashboard";
 import AdminInquiries from "../../components/Adithya/AdminInquiries";
 import AdminInventory from "../../components/Adithya/AdminInventory";
 import AdminOtherControls from "../../components/Adithya/AdminOtherControls";
-//import AdminDelivery from "????????";
+import AdminDelivery from "../Randika/AdminDelivery"
 
 const AdminProfileScreen = () => {
   const [dashboardSection, setDashboardSection] = useState(true);
@@ -95,7 +95,8 @@ const AdminProfileScreen = () => {
             {inventorySection && <AdminInventory />}
             {inquirySection && <AdminInquiries />}
             {otherSection && <AdminOtherControls />}
-            {/* {deliverySection && <AdminDelivery />} */}
+            {deliverySection && <AdminDelivery />}
+            {/* {deliverySection && <h1>Heloooo</h1>} */}
           </Container>
         </Col>
       </Row>

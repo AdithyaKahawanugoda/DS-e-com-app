@@ -30,7 +30,8 @@ router
 const {
   getWishlist,
   addToWishList,
-  removeItemsFromWishlist
+  removeItemsFromWishlist,
+  addOrder
 } = require("../controllers/profile-customer-controller");
 
 router.route("/getWishlist/:id").get(protectedCustomerRoutes,getWishlist);
@@ -38,6 +39,8 @@ router.route("/getWishlist/:id").get(protectedCustomerRoutes,getWishlist);
 router.route("/addtoWishlist/:id").put(protectedCustomerRoutes,addToWishList);
 
  router.route("/removeItemsFromWishlist/:id").put(protectedCustomerRoutes,removeItemsFromWishlist);
+
+ router.route("/addOrder").post(protectedCustomerRoutes,addOrder);
 
 //.......................................................
 
